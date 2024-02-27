@@ -4,16 +4,17 @@ const updateHandler = async (event) => {
     
     const title = document.querySelector('#title').value.trim();
     const text = document.querySelector('#text').value.trim();
+    const post_id = window.location.pathname.slice(8);
   
     if (title && text) {
-        const response = await fetch('/api/posts', {
-            method: 'POST',
+        const response = await fetch(`/api/posts/${post_id}`, {
+            method: 'PUT',
             body: JSON.stringify({ title, text }),
             headers: { 'Content-Type': 'application/json' },
         });
   
         if (response.ok) {
-            document.location.reload();
+            document.location.replace('/');
         } else {
             alert('Failed to update post.');
         }
