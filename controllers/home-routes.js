@@ -60,15 +60,75 @@ router.get("/post/:id", async (req, res) => {
 });
 
 // Dashboard route
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', async (req, res) => {
+
   if (req.session.loggedIn) {
+    const dbPostData = await Post.findAll({
+      where: {
+        user_id: req.session.userId
+      }
+    });
+  
+    const posts = dbPostData.map((post) =>
+    post.get({ plain: true })
+    );
+
     res.render('dashboard', {
+      posts,
       loggedIn: req.session.loggedIn
     });
     return;
   }
   res.redirect('login');
 })
+
+// Editor route
+router.get('/editor/:id', async (req, res) => {
+  try {
+    const dbPostData = await Post.findByPk(req.params.id, {
+      include: [{ 
+        model: User,
+        attributes: ['username']
+      },
+      { model: Comment,
+        attributes: ['text', 'date_added'],
+        include: [
+          {
+            model: User,
+            attributes: ['username']
+          }
+        ]
+      }]
+    });
+
+    const post = dbPostData.get({ plain: true });
+
+    if (req.session.loggedIn) {
+      res.render('editor', {
+        post,
+        loggedIn: req.session.loggedIn
+      });
+      return;
+    }
+
+    res.render('login');
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+// Create route
+router.get('/create', async (req, res) => {
+  if (req.session.loggedIn) {
+    res.render('create', {
+      loggedIn: req.session.loggedIn
+    });
+    return;
+  }
+  res.render('login');
+});
 
 // Login route
 router.get('/login', (req, res) => {

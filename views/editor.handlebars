@@ -1,0 +1,30 @@
+{{#if loggedIn}}
+<div class="card mt-2">
+  <div class="row g-0">
+    <div class="card-body">
+      <form class="post-editor">
+        <h2>Edit Post</h2>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="title" class="form-control" id="title" value="{{post.title}}">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" id="content" rows="3">{{post.text}}</textarea>
+        </div>
+        <div class="d-grid gap-2 col-12">
+          <button type="update" class="btn btn-primary mb-3" id="update-button">Update Post</button>
+        </div>
+        <div class="d-grid gap-2 col-12">
+          <button type="delete" class="btn btn-primary mb-3" id="delete-button">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="../js/edit.js"></script>
+
+{{else}}
+<div class="text-center"><a href="/login">You must login first to view this page</a></div>
+{{/if}}

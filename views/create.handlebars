@@ -1,0 +1,27 @@
+{{#if loggedIn}}
+<div class="card mt-2">
+  <div class="row g-0">
+    <div class="card-body">
+      <form class="post-creator">
+        <h2>Create New Post</h2>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="title" class="form-control" id="title">
+        </div>
+        <div class="mb-3">
+            <label for="text" class="form-label">Content</label>
+            <textarea class="form-control" id="text" rows="3"></textarea>
+        </div>
+        <div class="d-grid gap-2 col-12">
+          <button type="submit" class="btn btn-primary mb-3">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="../js/create.js"></script>
+
+{{else}}
+<div class="text-center"><a href="/login">You must login first to view this page</a></div>
+{{/if}}
