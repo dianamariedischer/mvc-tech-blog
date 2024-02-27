@@ -1,6 +1,7 @@
-<div class="d-flex flex-wrap gap-3 justify-content-center">
+<div class="container">
+  <div class="row d-flex justify-content-center">
   {{#each posts as |post| }}
-  <div class="card" style="max-width: 500px;">
+  <div class="card col-md m-1">
     <div class="row g-0">
       <div class="card-body">
         <a class="card-title text-decoration-none stretched-link" href="/post/{{id}}"><h5>{{title}}</h5></a>
@@ -10,4 +11,5 @@
     </div>
   </div>
   {{/each}}
+  </div>
 </div>
